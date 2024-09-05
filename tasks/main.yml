@@ -1,19 +1,29 @@
 ---
+- name: Check if ansible version is equal or greater than 2.11
+  ansible.builtin.fail:
+    msg: "Ansible core should be equal or greater than 2.11"
+  when: ansible_version.full is ansible.builtin.version('2.11','<')
+
+- name: Check if python is equal or greater than 3
+  ansible.builtin.fail:
+    msg: "Python should be equal or greater than 3"
+  when: ansible_python.version.major is ansible.builtin.version('3','<')
+
 # tasks file for distcc
-- name: install distcc package
+- name: Install distcc package
   ansible.builtin.package:
     name: "{{ distcc_packages }}"
     state: present
   tags: distcc_install
 
-- name: check if config dirs exist
+- name: Check if config dirs exist
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
   loop: "{{ distcc_config_dirs }}"
   tags: distcc_config
 
-- name: copy config for distccd unit file
+- name: Copy config for distccd unit file
   ansible.builtin.template:
     src: "{{ distcc_templates_dir }}/distcc.service.conf.j2"
     dest: "{{ distcc_service_config }}"
@@ -23,7 +33,7 @@
   when: ansible_service_mgr == 'systemd'
   tags: distcc_config
 
-- name: set distcc environment
+- name: Set distcc environment
   ansible.builtin.blockinfile:
     path: "{{ distcc_env.path }}"
     state: present
