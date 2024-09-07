@@ -1,10 +1,10 @@
 ---
 # handlers file for distcc
-- name: systemd daemon reload
+- name: Systemd daemon reload
   ansible.builtin.systemd_service:
     daemon_reload: true
 
-- name: distccd restart
+- name: Distccd restart
   ansible.builtin.service:
     name: distccd
     state: restarted

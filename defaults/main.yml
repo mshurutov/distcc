@@ -2,9 +2,9 @@
 # defaults file for distcc
 distcc_templates_dir: "{{ role_path }}/templates"
 distcc_config_dirs:
-- "/etc/distcc"
-- "/etc/systemd/system/distccd.service.d" # this path is used on only linux with systemd
+  - "/etc/distcc"
+  - "/etc/systemd/system/distccd.service.d" # this path is used on only linux with systemd
 distcc_packages:
-- "sys-devel/distcc" # by default distcc used on Gentoo Linux
+  - "sys-devel/distcc" # by default distcc used on Gentoo Linux
 distcc_service_config: "/etc/systemd/system/distccd.service.d/00gentoo.conf"
 distcc_config: "/etc/distcc/hosts"

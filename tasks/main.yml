@@ -20,6 +20,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0755"
   loop: "{{ distcc_config_dirs }}"
   tags: distcc_config
 
@@ -27,6 +28,7 @@
   ansible.builtin.template:
     src: "{{ distcc_templates_dir }}/distcc.service.conf.j2"
     dest: "{{ distcc_service_config }}"
+    mode: "0644"
   notify:
     - systemd daemon reload
     - distccd restart
@@ -38,6 +40,7 @@
     path: "{{ distcc_env.path }}"
     state: present
     create: true
+    mode: "0644"
     block: |
       {% for config_line in distcc_env.lines %}
       {{ config_line }}
