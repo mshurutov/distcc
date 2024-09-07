@@ -30,8 +30,8 @@
     dest: "{{ distcc_service_config }}"
     mode: "0644"
   notify:
-    - systemd daemon reload
-    - distccd restart
+    - Systemd daemon reload
+    - Distccd restart
   when: ansible_service_mgr == 'systemd'
   tags: distcc_config
 
